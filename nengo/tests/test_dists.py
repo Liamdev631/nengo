@@ -1,5 +1,3 @@
-import filecmp
-import os
 import time
 
 import numpy as np
@@ -242,7 +240,7 @@ def test_scattered_hypersphere(dims, surface, seed, plt):
             0.5 * (bins[:-1] + bins[1:]),
             histogram,
             colors[i],
-            label="%s: t=%0.2e" % (dists[i], times[i]),
+            label=f"{dists[i]}: t={times[i]:0.2e}",
         )
     plt.legend()
 
@@ -548,7 +546,7 @@ def _test_betaincinv22(plt, allclose):
             ax[1].plot(x, y - yref)
 
         speedups = np.array(resultsT[2]) / np.array(resultsT[3])
-        ax[0].set_title("average speedup = %0.1f times" % speedups.mean())
+        ax[0].set_title(f"average speedup = {speedups.mean():0.1f} times")
         ax[0].set_ylabel("value")
         ax[1].set_xlabel("input")
         ax[1].set_ylabel("error")
@@ -560,15 +558,13 @@ def _test_betaincinv22(plt, allclose):
         assert allclose(y, yref, atol=atol), "dims=%d" % dims[i]
 
 
-def test_make_betaincinv22_table(monkeypatch, tmpdir, plt, allclose):
+def test_make_betaincinv22_table(monkeypatch, tmp_path, plt, allclose):
     pytest.importorskip("scipy.special")
-    path = os.path.join(str(tmpdir), "betaincinv22_test_table.npz")
-    monkeypatch.setattr(_betaincinv22, "path", path)
+    test_path = str(tmp_path / "betaincinv22_test_table.npz")
+    monkeypatch.setattr(_betaincinv22, "path", test_path)
     monkeypatch.setattr(_betaincinv22, "table", None)
 
     _betaincinv22.make_table(n_interp=200, n_dims=50)
-    assert filecmp.cmp(path, _betaincinv22.path)
-
     _test_betaincinv22(plt=plt, allclose=allclose)
 
 
