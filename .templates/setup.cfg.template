@@ -1,0 +1,6 @@
+{% extends "templates/setup.cfg.template" %}
+
+{% block coverage_run %}
+[coverage:run]
+source = ./
+{% endblock %}
