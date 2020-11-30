@@ -12,16 +12,12 @@ import sys
 
 from nengo.version import version as __version__
 
-if sys.version_info < (3, 6):
+if sys.version_info < (3, 6):  # pragma: no cover
     raise ImportError(
-        f"""
-You are running Python version {sys.version} with Nengo version {__version__}.
+        """
+You are running Python version %(sys_version)s with Nengo version %(nengo_version)s.
+
 Nengo requires at least Python 3.6.
-
-The fact that this version was installed on your system probably means that you
-are using an older version of pip; you should consider upgrading with
-
- $ pip install pip setuptools --upgrade
 
 There are two options for getting Nengo working:
 
@@ -31,6 +27,7 @@ There are two options for getting Nengo working:
 
  $ pip install 'nengo<=3.1'
 """
+        % dict(sys_version=sys.version, nengo_version=__version__)
     )
 del sys
 
