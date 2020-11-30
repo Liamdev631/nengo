@@ -179,9 +179,9 @@ class InstanceParams:
         elif key in dir(self._configures):
             # Disallow configuring attributes the instance already has
             raise ConfigError(
-                "Cannot configure the built-in parameter '%s' on an instance "
-                "of '%s'. Please delete the attribute directly on the object."
-                % (key, type(self._configures).__name__)
+                f"Cannot configure the built-in parameter '{key}' on an instance of "
+                f"'{type(self._configures).__name__}'. Please delete the attribute "
+                "directly on the object."
             )
         else:
             self._clsparams.get_param(key).__delete__(self)
@@ -189,9 +189,9 @@ class InstanceParams:
     def __getattr__(self, key):
         if key in self._clsparams.default_params:
             raise ConfigError(
-                "Cannot configure the built-in parameter '%s' on an instance "
-                "of '%s'. Please get the attribute directly from the object."
-                % (key, type(self._configures).__name__)
+                f"Cannot configure the built-in parameter '{key}' on an instance of "
+                f"'{type(self._configures).__name__}'. Please get the attribute "
+                "directly from the object."
             )
         param = self._clsparams.get_param(key)
         if self in param:
@@ -205,9 +205,9 @@ class InstanceParams:
         elif key in dir(self._configures):
             # Disallow configuring attributes the instance already has
             raise ConfigError(
-                "Cannot configure the built-in parameter '%s' on an instance "
-                "of '%s'. Please set the attribute directly on the object."
-                % (key, type(self._configures).__name__)
+                f"Cannot configure the built-in parameter '{key}' on an instance of "
+                f"'{type(self._configures).__name__}'. Please set the attribute "
+                "directly on the object."
             )
         else:
             self._clsparams.get_param(key).__set__(self, value)

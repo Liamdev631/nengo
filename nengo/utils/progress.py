@@ -260,9 +260,8 @@ class TerminalProgressBar(ProgressBar):
 
     def _get_finished_line(self, progress):
         width, _ = get_terminal_size()
-        line = "{} finished in {}.".format(
-            progress.name_after, timestamp2timedelta(progress.elapsed_seconds())
-        ).ljust(width)
+        elapsed_seconds = timestamp2timedelta(progress.elapsed_seconds())
+        line = f"{progress.name_after} finished in {elapsed_seconds}.".ljust(width)
         return "\r" + line
 
     def close(self):

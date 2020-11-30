@@ -413,21 +413,21 @@ class Convolution(Transform):
 
         if len(kernel_size) != self.dimensions:
             raise ValidationError(
-                "Kernel dimensions (%d) do not match input dimensions (%d)"
-                % (len(kernel_size), self.dimensions),
+                f"Kernel dimensions ({len(kernel_size)}) does not match "
+                f"input dimensions ({self.dimensions})",
                 attr="kernel_size",
             )
         if len(strides) != self.dimensions:
             raise ValidationError(
-                "Stride dimensions (%d) do not match input dimensions (%d)"
-                % (len(strides), self.dimensions),
+                f"Stride dimensions ({len(strides)}) does not match "
+                f"input dimensions ({self.dimensions})",
                 attr="strides",
             )
         if not isinstance(init, Distribution):
             if init.shape != self.kernel_shape:
                 raise ValidationError(
-                    "Kernel shape %s does not match expected shape %s"
-                    % (init.shape, self.kernel_shape),
+                    f"Kernel shape {init.shape} does not match "
+                    f"expected shape {self.kernel_shape}",
                     attr="init",
                 )
 

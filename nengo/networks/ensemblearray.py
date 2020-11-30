@@ -252,8 +252,8 @@ class EnsembleArray(Network):
         """
         if hasattr(self, name):
             raise ValidationError(
-                "Cannot add output %r; there is already an attribute by this name"
-                % (name,),
+                f"Cannot add output '{name}'; there is already an attribute "
+                "with this name",
                 attr="name",
                 obj=self,
             )

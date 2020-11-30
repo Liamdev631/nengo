@@ -286,17 +286,17 @@ class NumberParam(Parameter):
                 )
             low_comp = 0 if self.low_open else -1
             if self.low is not None and compare(num, self.low) <= low_comp:
+                eq_phrase = "" if self.low_open else " or equal to"
                 raise ValidationError(
-                    "Value must be greater than %s%s (got %s)"
-                    % ("" if self.low_open else "or equal to ", self.low, num),
+                    f"Value must be greater than{eq_phrase} {self.low} (got {num})",
                     attr=self.name,
                     obj=instance,
                 )
             high_comp = 0 if self.high_open else 1
             if self.high is not None and compare(num, self.high) >= high_comp:
+                eq_phrase = "" if self.high_open else " or equal to"
                 raise ValidationError(
-                    "Value must be less than %s%s (got %s)"
-                    % ("" if self.high_open else "or equal to ", self.high, num),
+                    f"Value must be less than{eq_phrase} {self.high} (got {num})",
                     attr=self.name,
                     obj=instance,
                 )
@@ -409,8 +409,7 @@ class ShapeParam(TupleParam):
             for i, v in enumerate(value):
                 if not is_integer(v):
                     raise ValidationError(
-                        "Element %d must be an int (got type %r)"
-                        % (i, type(v).__name__),
+                        f"Element {i} must be an int (got type {type(v).__name__})",
                         attr=self.name,
                         obj=instance,
                     )
@@ -498,8 +497,8 @@ class NdarrayParam(Parameter):
                 ndarray = np.array(ndarray, dtype=self.dtype)
             except (ValueError, TypeError) as e:
                 raise ValidationError(
-                    "Must be a %s NumPy array (got type %r)"
-                    % (self.dtype, type(ndarray).__name__),
+                    f"Must be a {self.dtype} NumPy array "
+                    f"(got type {type(ndarray).__name__})",
                     attr=self.name,
                     obj=instance,
                 ) from e

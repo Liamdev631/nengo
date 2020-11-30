@@ -14,8 +14,8 @@ class LearningRuleTypeSizeInParam(IntParam):
         if isinstance(size_in, str):
             if size_in not in self.valid_strings:
                 raise ValidationError(
-                    "%r is not a valid string value (must be one of %s)"
-                    % (size_in, self.strings),
+                    f"{size_in!r} is not a valid string value "
+                    f"(must be one of {self.valid_strings})",
                     attr=self.name,
                     obj=instance,
                 )

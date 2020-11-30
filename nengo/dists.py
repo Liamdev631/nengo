@@ -673,8 +673,8 @@ class Choice(Distribution):
         weights = np.ones(len(self.options)) if self.weights is None else self.weights
         if len(weights) != len(self.options):
             raise ValidationError(
-                "Number of weights (%d) must match number of options (%d)"
-                % (len(weights), len(self.options)),
+                f"Number of weights ({len(weights)}) must match "
+                f"number of options ({len(self.options)})",
                 attr="weights",
                 obj=self,
             )

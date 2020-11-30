@@ -542,7 +542,7 @@ def _test_betaincinv22(plt, allclose):
             yref, y, ref_timer, timer = results[i]
             dim = dims[i]
 
-            ax[0].plot(x, y, label="dims=%d" % dim)
+            ax[0].plot(x, y, label=f"dims={dim}")
             ax[1].plot(x, y - yref)
 
         speedups = np.array(resultsT[2]) / np.array(resultsT[3])
@@ -555,7 +555,7 @@ def _test_betaincinv22(plt, allclose):
     for i, (yref, y, ref_timer, timer) in enumerate(results):
         # allow error to increase for higher dimensions (to 5e-3 when dims=1000)
         atol = 1e-3 + (np.log10(dims[i]) / 3) * 4e-3
-        assert allclose(y, yref, atol=atol), "dims=%d" % dims[i]
+        assert allclose(y, yref, atol=atol), f"dims={dims[i]}"
 
 
 def test_make_betaincinv22_table(monkeypatch, tmp_path, plt, allclose):

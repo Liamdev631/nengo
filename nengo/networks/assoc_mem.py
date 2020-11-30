@@ -232,9 +232,8 @@ class AssociativeMemory(Network):
         # --- Check some preconditions
         if input_scales.shape[1] != n_vectors:
             raise ValidationError(
-                "Number of input_scale values (%d) does not "
-                "match number of input vectors (%d)."
-                % (input_scales.shape[1], n_vectors),
+                f"Number of input_scale values ({input_scales.shape[1]}) does not "
+                f"match number of input vectors ({n_vectors}).",
                 attr="input_scales",
             )
         if hasattr(self, name):

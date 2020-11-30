@@ -635,7 +635,7 @@ class SparseDotInc(DotInc):
 
     def __init__(self, A, X, Y, tag=None):
         if not A.sparse:
-            raise BuildError("%s: A must be a sparse Signal")
+            raise BuildError(f"{self}: A must be a sparse Signal")
 
         # Disallow reshaping
         super().__init__(A, X, Y, reshape=False, tag=tag)
@@ -810,8 +810,8 @@ class SimPyFunc(Operator):
                     # required since Numpy turns None into NaN
                     if y is None or not np.all(np.isfinite(y)):
                         raise SimulationError(
-                            "Function %r returned non-finite value"
-                            % function_name(self.fn)
+                            f"Function '{function_name(self.fn)}' returned "
+                            "non-finite value"
                         )
 
                     output[...] = y

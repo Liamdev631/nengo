@@ -74,9 +74,8 @@ class ConnectionLearningRuleTypeParam(LearningRuleTypeParam):
         else:
             if not isinstance(conn.post_obj, (Ensemble, Neurons, Node)):
                 raise ValidationError(
-                    "'post' must be of type 'Ensemble', 'Neurons' or 'Node' "
-                    "(got %r) for learning rule '%s'"
-                    % (type(conn.post_obj).__name__, rule),
+                    "'post' must be of type 'Ensemble', 'Neurons' or 'Node' (got "
+                    f"'{type(conn.post_obj).__name__}') for learning rule '{rule}'",
                     attr=self.name,
                     obj=conn,
                 )
@@ -184,9 +183,8 @@ class ConnectionFunctionParam(Parameter):
 
         if ndarray.shape[0] != conn.eval_points.shape[0]:
             raise ValidationError(
-                "Number of evaluation points must match number "
-                "of function points (%d != %d)"
-                % (ndarray.shape[0], conn.eval_points.shape[0]),
+                "Number of evaluation points must match number of function points "
+                f"({ndarray.shape[0]} != {conn.eval_points.shape[0]})",
                 attr=self.name,
                 obj=conn,
             )
@@ -286,9 +284,8 @@ class ConnectionTransformParam(Parameter):
                 )
             else:
                 raise ValidationError(
-                    "Transform input size (%d) not equal to %s output size "
-                    "(%d)"
-                    % (transform.size_in, type(conn.pre_obj).__name__, conn.size_mid),
+                    f"Transform input size ({transform.size_in}) not equal to "
+                    f"'{type(conn.pre_obj).__name__}' output size ({conn.size_mid})",
                     attr=self.name,
                     obj=conn,
                 )

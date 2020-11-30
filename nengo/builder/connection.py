@@ -228,15 +228,14 @@ def build_connection(model, conn):
 
         if target not in model.sig:
             raise BuildError(
-                "Building %s: the %r object %s is not in the "
-                "model, or has a size of zero."
-                % (conn, "pre" if is_pre else "post", target)
+                f"Building {conn}: the '{'pre' if is_pre else 'post'}' object {target} "
+                "is not in the model, or has a size of zero."
             )
         signal = model.sig[target].get(key, None)
         if signal is None or signal.size == 0:
             raise BuildError(
-                "Building %s: the %r object %s has a %r size of zero."
-                % (conn, "pre" if is_pre else "post", target, key)
+                f"Building {conn}: the '{'pre' if is_pre else 'post'}' object {target} "
+                f"has a '{key}' size of zero."
             )
 
         return signal
@@ -342,8 +341,8 @@ def build_connection(model, conn):
         # TODO: provide a general way for transforms to expose learnable params
         if not isinstance(conn.transform, (Dense, NoTransform)):
             raise NotImplementedError(
-                "Learning on connections with %s transforms is not supported"
-                % (type(conn.transform).__name__,)
+                f"Learning on connections with {type(conn.transform).__name__} "
+                "transforms is not supported"
             )
 
         rule = conn.learning_rule
