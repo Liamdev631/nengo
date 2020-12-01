@@ -217,6 +217,10 @@ def conv2d_gradx(w, dy, xsize, pad='SAME', stride=(1, 1)):
       - Do not transpose input/output channels in `w`
       - Fix bug in computing `pad2w` (use `dys[1]` instead of `dys[0]`)
       - Add new `calc_gradx_pad` function to ensure we compute padding the same as TF
+
+    These changes have been added as a PR on the upstream repo
+    https://github.com/renmengye/np-conv2d/pull/2, once those are merged in we can
+    switch this back to a direct copy.
     """
     assert w.shape[-2] == dy.shape[-1]
 
