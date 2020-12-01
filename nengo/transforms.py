@@ -541,7 +541,7 @@ class ConvolutionTranspose(_ConvolutionBase):
     transform will be the transpose of a `.Convolution` transform with those
     parameters. The ``n_filters`` and ``input_shape`` parameters are relative to *this*
     transform. The output shape is ambiguous, and can thus be specified (i.e. with
-    `.Convolution`, there can be more than input shape that produces the same output
+    `.Convolution`, there can be more than one input shape that produces the same output
     shape, so here, there are multiple valid output shapes for some input shapes).
 
     The dimensionality of the transpose convolution is determined by the input shape.

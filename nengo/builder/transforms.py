@@ -171,7 +171,7 @@ class GeneralConvInc(Operator):
         self.updates = []
 
     @property
-    def transpose(self):
+    def is_transpose(self):
         return isinstance(self.conv, ConvolutionTranspose)
 
     @property
@@ -188,7 +188,7 @@ class GeneralConvInc(Operator):
 
     @property
     def _descstr(self):
-        name = "convtranspose2d" if self.transpose else "conv2d"
+        name = "convtranspose2d" if self.is_transpose else "conv2d"
         return "%s(%s, %s) -> %s" % (name, self.W, self.X, self.Y)
 
     def make_step(self, signals, dt, rng):
@@ -203,7 +203,7 @@ class GeneralConvInc(Operator):
         pad = self.conv.padding.upper()
         stride = self.conv.strides
         output_spatial_shape = (
-            self.conv.output_shape.spatial_shape if self.transpose else None
+            self.conv.output_shape.spatial_shape if self.is_transpose else None
         )
 
         X = X.reshape(self.conv.input_shape.shape)
@@ -225,7 +225,7 @@ class GeneralConvInc(Operator):
         # add empty batch dimension
         X = X[None, ...]
 
-        if self.transpose:
+        if self.is_transpose:
 
             def step_conv_transpose():
                 Y[...] += conv2d.conv2d_gradx(
@@ -283,7 +283,7 @@ class ConvInc(GeneralConvInc):
 
     def __init__(self, W, X, Y, conv, tag=None):
         super().__init__(W, X, Y, conv, tag=tag)
-        assert not self.transpose
+        assert not self.is_transpose
 
 
 class ConvTransposeInc(GeneralConvInc):
@@ -327,7 +327,7 @@ class ConvTransposeInc(GeneralConvInc):
 
     def __init__(self, W, X, Y, conv, tag=None):
         super().__init__(W, X, Y, conv, tag=tag)
-        assert self.transpose
+        assert self.is_transpose
 
 
 @Builder.register(NoTransform)
