@@ -66,7 +66,14 @@ from nengo.probe import Probe
 from nengo.rc import RC_DEFAULTS, rc
 from nengo.simulator import Simulator
 from nengo.synapses import Alpha, LinearFilter, Lowpass, Triangle
-from nengo.transforms import Convolution, Dense, Sparse
+from nengo.transforms import (
+    Conv,
+    Convolution,
+    ConvolutionTranspose,
+    ConvTranspose,
+    Dense,
+    Sparse,
+)
 
 logger = logging.getLogger(__name__)
 try:

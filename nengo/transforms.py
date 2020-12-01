@@ -796,3 +796,8 @@ class NoTransform(Transform):
     def size_out(self):
         """Expected size of output from transform."""
         return self._size_in
+
+
+# aliases
+Conv = Convolution
+ConvTranspose = ConvolutionTranspose
